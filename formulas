@@ -1,0 +1,20 @@
+For on off exponentialin
+
+If mu_on is the param for on period. Then 1/mu_on is the the burst time and 1/mu_off is the idle time
+on follows exp(mu_on)
+
+Similar to poisson where 1/lambda is the time between packets and lambda is the average amount of packets per sec
+lambda = average rate for poisson
+
+
+average rate = (rate* burst time)  / (burst_time + idle time)
+
+if we set burst time to 0, idle time to 1/lambda, and set rate very high, we have a poisson distribution
+
+
+'''
+
+FOR CBR
+
+interval = 1/rate
+average rate is rate_

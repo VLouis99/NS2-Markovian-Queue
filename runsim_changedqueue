@@ -1,0 +1,41 @@
+#
+# Generates results in columns ready to be plotted 
+# The first column is lambda (the input rate)
+# The second column is the simulation time
+# Etc.
+#
+
+resfile=res1_changedqueue
+
+rm -i $resfile 
+
+#seed=21113944 # <<<<<<< CHANGE HERE
+b=120
+p=0.1
+while [ $b -le 250 ]
+do
+  b=$(echo "$b + 10" | bc)
+  ns lab2_changequeue.tcl $b $p 
+  echo -n "Analyzing ... "
+  echo -n "$b " >> $resfile; awk -f analyze_delay.awk /tmp/out.tr >> $resfile 
+  echo " "
+done
+
+for b in 262 263 264 265.1 265.2 265.3 265.4 265.5 265.6 265.7 265.8 265.9 266 266.2 266.3 266.4 266.5 265.6 265.7; do
+  ns lab2_changequeue.tcl $b $p 
+  echo -n "Analyzing ... "
+  echo -n "$b " >> $resfile; awk -f analyze_delay.awk /tmp/out.tr >> $resfile 
+  echo "End."
+  echo "Results summary line for the last simulation:"
+  tail -1 $resfile 
+  echo " "
+done
+
+
+
+
+printf "\n\n\tDone\n"
+
+printf "\n\tThe results are in $resfile\n\n"
+
+
